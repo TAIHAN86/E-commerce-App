@@ -27,6 +27,7 @@ function Header() {
                 <div className="flex space-x-4 items-center">
                     <button className="hidden md:inline-block text-blue-500 border border-blue-500 px-4 py-2 rounded hover:bg-blue-100"> your Cart</button>
                     <Link href="/cart">
+                        {/* cart icon*/}
                     <ShoppingCartIcon class="h-6 w-6 text-gray-500" />
                     </Link>
                 </div>
