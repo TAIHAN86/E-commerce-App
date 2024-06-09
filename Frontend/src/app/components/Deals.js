@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 
 function Deals() {
 
@@ -89,6 +90,7 @@ function Deals() {
 
         <div className="flex flex-col md:flex md:flex-row md:space-x-3">
         {offers?.map((item, index) => (
+          <Link href={`/product/${item?._id}`}>
              <div className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center">
              <img className="w-32 h-32 object-contain" src={item?.image} />
 
@@ -107,7 +109,7 @@ function Deals() {
              </div>
              </div>
                
-
+             </Link>
                
              
         
