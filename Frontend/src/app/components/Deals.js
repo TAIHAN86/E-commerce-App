@@ -1,6 +1,13 @@
-import React from 'react'
-import Link from 'next/link';
 
+import Link from 'next/link';
+import { client } from '../../../y/sanity';
+import { groq } from 'next-sanity';
+import React ,{useState,useEffect} from "react"; 
+
+
+async function getData() {
+  return client.fetch(groq`*[_type == "deal"]`);
+}
 function Deals() {
 
     const offers = [
@@ -84,12 +91,22 @@ function Deals() {
           size: "Normal",
         },
       ];
+
+      const [posts,setPosts] = useState([])
+      useEffect(() => {
+          getData().then((data) => {
+              setPosts(data);
+          }).catch((error) => {
+              console.log("error fetching posts",error)
+          })
+      },[]);
+      console.log(posts)
   return (
     <div className='ml-4 mx-10 md:mt-32'>
         <h1 className='text-xl font-bold mb-3'>Todays Deals</h1>
 
         <div className="flex flex-col md:flex md:flex-row md:space-x-3">
-        {offers?.map((item, index) => (
+        {posts?.map((item, index) => (
           <Link href={`/product/${item?._id}`}>
              <div className="p-2 bg-white cursor-pointer shadow-md flex flex-col space-y-2 items-center justify-center">
              <img className="w-32 h-32 object-contain" src={item?.image} />

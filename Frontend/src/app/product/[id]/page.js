@@ -96,6 +96,20 @@ function ProductDetails({ params }) {
     setAdded(true);
     dispatch(addToCart(item));
   };
+  const {id} = params;
+  const [product,setProduct] = useState(null);
+  useEffect(() => {
+    if(id){
+        const fetchData = async() => {
+            const query = groq`*[_type == "deal" && _id == $id][0]`;
+            const data = await client.fetch(query,{id});
+            setProduct(data)
+        }
+
+        fetchData();
+    }
+  },[id])
+  console.log(product)
 
   return (
     <div>
