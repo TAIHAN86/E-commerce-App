@@ -2,7 +2,7 @@
 import Header from "@/app/components/Header";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { addToCart } from "../../../../redux/CartReducer";
 
 function ProductDetails({ params }) {
   const offers = [
@@ -86,11 +86,17 @@ function ProductDetails({ params }) {
       size: "Normal",
     },
   ];
-   const product = offers.find((item) => item.id === params?.id);
+
+  const product = offers.find((item) => item.id === params?.id);
   const [index, setIndex] = useState(0);
-  
- 
- 
+  const [added, setAdded] = useState(false);
+  const dispatch = useDispatch();
+
+  const addItemToCart = (item) => {
+    setAdded(true);
+    dispatch(addToCart(item));
+  };
+
   return (
     <div>
       <Header />
@@ -104,12 +110,12 @@ function ProductDetails({ params }) {
             />
           </div>
           <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
-            {product?.carouselImages?.map((item, index) => (
+            {product?.carouselImages?.map((item, idx) => (
               <img
-                key={index}
+                key={idx}
                 className="w-20 h-20 object-contain cursor-pointer"
                 src={item}
-                onMouseEnter={() => setIndex(index)}
+                onMouseEnter={() => setIndex(idx)}
               />
             ))}
           </div>
@@ -118,23 +124,17 @@ function ProductDetails({ params }) {
         {/* Right Part */}
         <div className="flex flex-col space-y-2">
           <h1 className="text-lg font-semibold">{product?.title}</h1>
-
-          <p>Color : {product?.color}</p>
-
-          <p>Size : {product?.size}</p>
-
-          <h4>Details :</h4>
-
-          <p>Price : Rs{product?.price}</p>
-
+          <p>Color: {product?.color}</p>
+          <p>Size: {product?.size}</p>
+          <h4>Details:</h4>
+          <p>Price: Rs {product?.price}</p>
           <div className="flex flex-col space-y-3">
             <button
-              onClick={() => addItemToCart(item)}
+              onClick={() => addItemToCart(product)}
               className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400"
             >
-             
+              {added ? "Added to Cart" : "Add to Cart"}
             </button>
-
             <button className="w-60 rounded-md p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-400 to-yellow-500">
               Buy Now
             </button>
