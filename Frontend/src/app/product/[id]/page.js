@@ -87,7 +87,7 @@ function ProductDetails({ params }) {
     },
   ];
 
-  const product = offers.find((item) => item.id === params?.id);
+  //const product = offers.find((item) => item.id === params?.id);
   const [index, setIndex] = useState(0);
   const [added, setAdded] = useState(false);
   const dispatch = useDispatch();

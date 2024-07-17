@@ -40,7 +40,7 @@ function Banner() {
         showThumbs={false}
       >
       <div>
-          <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img12/home-improvement/HMDGATEWAYS/Aug-HMD---Hero-2_3000x1200-N-2._CB598590461_.jpg" />
+          <img src="https://www.finplus.co.in/wp-content/uploads/2021/10/7th-Oct-bANNER.jpg" />
         </div>
         <div>
           <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/Shreyansh/BAU/Unrexc/D70978891_INWLD_BAU_Unrec_Uber_PC_Hero_3000x1200._CB594707876_.jpg" />

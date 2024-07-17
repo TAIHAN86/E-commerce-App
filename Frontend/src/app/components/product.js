@@ -11,8 +11,10 @@ function Product({ item }) {
     dispatch(addToCart(item));
   };
   return (
-    <div className="relative flex border flex-col bg-white m-5 p-3">
+    <div className=" blocks relative flex border flex-col bg-white m-5 p-3">
+
       <p>{item?.category}</p>
+      
 
       <div className="flex justify-center">
         <img className="w-32 h-32 object-contain" src={item?.image} />
@@ -28,7 +30,7 @@ function Product({ item }) {
 
       <button
         onClick={() => addItemToCart(item)}
-        className="p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400"
+        className=" button p-2 mt-2 text-xs md:text-sm bg-gradient-to-b from-white-200 to-yellow-400"
       >
         {added ? "Added to Cart" : "Add to Cart"}
       </button>
