@@ -3,20 +3,20 @@ import Image from "next/image";
 import React from "react";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { MinusSmallIcon } from "@heroicons/react/24/outline";
-import { PlusSmallIcon } from "@heroicons/react/24/outline";
+import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import {
-    decrementQuantity,
-    incrementQuantity,
-    removeFromCart,
-  } from "../../../redux/CartReducer";
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from "../../../redux/CartReducer";
 
-function cart() {
+function Cart() { // Updated component name
   const cart = useSelector((state) => state.cart.cart);
   const total = cart
     ?.map((item) => item.price * item.quantity)
     .reduce((prev, curr) => prev + curr, 0);
   const dispatch = useDispatch();
+
   const increaseQuantity = (item) => {
     dispatch(incrementQuantity(item));
   };
@@ -26,6 +26,7 @@ function cart() {
   const deleteItem = (item) => {
     dispatch(removeFromCart(item));
   };
+
   return (
     <div>
       <Header />
@@ -33,12 +34,16 @@ function cart() {
         <div className="flex flex-col col-span-5 mt-16 ml-20">
           <h2 className="text-xl font-bold">Your shopping Cart</h2>
           {cart?.map((item, index) => (
-            <div className="border rounded-md p-3 bg-white shadow-md flex flex-row space-x-4 my-4">
+            <div
+              key={item.id} // Added key prop
+              className="border rounded-md p-3 bg-white shadow-md flex flex-row space-x-4 my-4"
+            >
               <Image
                 width={80}
                 height={80}
-                objectFit={"contain"}
+                objectFit="contain"
                 src={item?.image}
+                alt={item?.title} // Added alt prop
               />
 
               <div className="flex-grow">
@@ -129,7 +134,7 @@ function cart() {
           <div className="bg-white rounded-sm mt-2 p-3 space-y-3">
             <div className="flex items-center justify-between">
               <h4 className="text-xs">Sub Total</h4>
-              <p className="text-sm font-normal">Rs </p>
+              <p className="text-sm font-normal">Rs {total}</p>
             </div>
             <div className="flex items-center justify-between">
               <h4 className="text-xs">Discount</h4>
@@ -142,7 +147,7 @@ function cart() {
             <hr className="w-full mt-1 decoration-dotted" />
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-bold">Grand Total</h4>
-              <p className="text-sm font-normal">Rs </p>
+              <p className="text-sm font-normal">Rs {total + 65}</p>
             </div>
             <button className="bg-yellow-500 text-center font-normal text-white rounded-md py-2 px-3 w-full">
               Place Order
@@ -154,4 +159,4 @@ function cart() {
   );
 }
 
-export default cart;
+export default Cart;

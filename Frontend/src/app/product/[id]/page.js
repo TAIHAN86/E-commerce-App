@@ -87,7 +87,6 @@ function ProductDetails({ params }) {
     },
   ];
 
-  //const product = offers.find((item) => item.id === params?.id);
   const [index, setIndex] = useState(0);
   const [added, setAdded] = useState(false);
   const dispatch = useDispatch();
@@ -96,20 +95,23 @@ function ProductDetails({ params }) {
     setAdded(true);
     dispatch(addToCart(item));
   };
-  const {id} = params;
-  const [product,setProduct] = useState(null);
-  useEffect(() => {
-    if(id){
-        const fetchData = async() => {
-            const query = groq`*[_type == "deal" && _id == $id][0]`;
-            const data = await client.fetch(query,{id});
-            setProduct(data)
-        }
 
-        fetchData();
+  const { id } = params;
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        const query = groq`*[_type == "deal" && _id == $id][0]`;
+        const data = await client.fetch(query, { id });
+        setProduct(data);
+      };
+
+      fetchData();
     }
-  },[id])
-  console.log(product)
+  }, [id]);
+
+  console.log(product);
 
   return (
     <div>
@@ -120,7 +122,8 @@ function ProductDetails({ params }) {
           <div>
             <img
               className="w-80 h-80 rounded-sm object-contain cursor-pointer"
-              src={product?.carouselImages[index]}
+              src={product?.carouselImages?.[index]}
+              alt={product?.title}
             />
           </div>
           <div className="hidden lg:flex lg:mt-12 gap-10 mt-10">
@@ -129,6 +132,7 @@ function ProductDetails({ params }) {
                 key={idx}
                 className="w-20 h-20 object-contain cursor-pointer"
                 src={item}
+                alt={`${product?.title} - ${idx}`}
                 onMouseEnter={() => setIndex(idx)}
               />
             ))}
