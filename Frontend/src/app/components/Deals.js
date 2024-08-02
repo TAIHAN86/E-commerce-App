@@ -39,8 +39,8 @@ function Deals() {
               <Image
                 className="w-32 h-32 object-contain"
                 src={item?.image}
-                alt={item?.title} // Added alt attribute
-                width={128} // Set a width
+                alt={item?.title} //
+                width={128} // 
                 height={128} // Set a height
               />
               <div>
